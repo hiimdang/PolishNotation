@@ -22,14 +22,17 @@ bool isNumber(char x) {//true -> Operand. false ->!number
 	return (x >= '0' && x <= '9');
 }
 bool isOperator(char x) { //true -> Operator. false -> !Operator
-	return(x == '+' || x == '-' || x == '*' || x == '/');
+	return(x == '+' || x == '-' || x == '*' || x == '/' || x == '^');
 }
-int rankOperator(char x) {// 1: +- ; 2: */
+int rankOperator(char x) {// 1: +- ; 2: */; 3: ^
 	if (x == '+' || x == '-') {
 		return 1;
 	}
 	if (x == '*' || x == '/') {
 		return 2;
+	}
+	if (x == '^') {
+		return 3;
 	}
 }
 
@@ -102,7 +105,7 @@ float calculate(Queue<string>& q, Stack<string>& s) {
 			s.push(k->data);
 		}
 		if (isOperator(k->data[0])) {
-			float p1 = stof(s.pop()->data); //convert string to float
+			float p1 = stof(s.pop()->data); //convert string to int
 			float p2 = stof(s.pop()->data);
 			switch (k->data[0]) {
 				case '*': {
@@ -122,6 +125,11 @@ float calculate(Queue<string>& q, Stack<string>& s) {
 				}
 				case '-': {
 					num = p2 - p1;
+					s.push(to_string(num));
+					break;
+				}
+				case '^': {
+					num = pow(p2, p1);
 					s.push(to_string(num));
 					break;
 				}
