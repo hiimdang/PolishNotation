@@ -102,7 +102,7 @@ float calculate(Queue<string>& q, Stack<string>& s) {
 			s.push(k->data);
 		}
 		if (isOperator(k->data[0])) {
-			float p1 = stof(s.pop()->data); //convert string to int
+			float p1 = stof(s.pop()->data); //convert string to float
 			float p2 = stof(s.pop()->data);
 			switch (k->data[0]) {
 				case '*': {
